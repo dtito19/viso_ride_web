@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { CssBaseline } from "@mui/material";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import RegisterBoda from "./components/register_boda_station";
+import Boda_Driver_Register from "./components/register_boda_driver";
 
 function App() {
+  const [auth, setAuth] = useState(false);
+  const location = useLocation();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <CssBaseline />
+      <Routes>
+        <Route path="/" element={<Dashboard/>} />
+        <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/registerBoda" element={<RegisterBoda/>} />
+        <Route path="/bodaDriverRegister" element={<Boda_Driver_Register/>} />
+        <Route
+        path="*"
+        element={<Navigate to="/" replace />}
+    />
+        {/* <Route
+          path="/"
+          element={
+            auth ? (
+              <Home setAuth={setAuth} />
+            ) : (
+              <Navigate to="/" state={{ from: location }} replace />
+            )
+          }
+        /> */}
+      </Routes>
+    </>
   );
 }
 

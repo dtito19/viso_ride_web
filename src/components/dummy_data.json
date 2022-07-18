@@ -1,0 +1,96 @@
+ [
+
+    {
+      "id": 1,
+      "name": "Erick", 
+      "position": "Mjumbe", 
+      "residence": "Makumbusho", 
+      "street": "makumbusho",
+       "ward": "makumbusho", 
+      "nationalID": "1234567890", 
+      "licenseID": "23456123", 
+      "motorbikeNum": "DCV 123", 
+      "phoneNum": "0987654321", 
+      "jacketNum": "10"
+    },
+    {
+      "id": 2,
+      "name":"Peter", 
+      "position":"Mjumbe", 
+      "residence": "Mwenge", 
+      "street": "Mwenge", 
+      "ward": "Mwenge", 
+      "nationalID": "2314567890", 
+      "licenseID": "4321834", 
+      "motorbikeNum": "CCV 321", 
+      "phoneNum": "0678912356", 
+      "jacketNum": "12"
+    },
+    {
+      "id": 3,
+      "name": "Kayombo", 
+      "position": "Mjumbe", 
+      "residence": "Mikocheni", 
+      "street": "Mikocheni", 
+      "ward": "Mikocheni", 
+      "nationalID": "5432167890", 
+      "licenseID": "768901", 
+      "motorbikeNum": "DDC 236", 
+      "phoneNum": "0781024565", 
+      "jacketNum": "9"
+    },
+    {
+      "id": 4,
+      "name":"Michael", 
+      "position": "Mjumbe", 
+      "residence": "Ukonga", 
+      "street": "Ukonga", 
+      "ward": "Ukonga", 
+      "nationalID": "8901234567", 
+      "licenseID": "345102", 
+      "motorbikeNum": "", 
+      "phoneNum": "0714237091", 
+      "jacketNum": "11"
+    },
+    {
+      "id": 5,
+      "name": "Cleophace", 
+      "position": "Mjumbe", 
+      "residence": "Makongo", 
+      "street": "Makongo", 
+      "ward": "Makongo", 
+      "nationalID": "8901234567", 
+      "licenseID": "456701", 
+      "motorbikeNum": "BCD 123", 
+      "phoneNum": "0789012345", 
+      "jacketNum": "15"
+    },
+    {
+      "id": 6,
+      "name":"Tito", 
+      "position": "Mjumbe", 
+      "residence": "Pugu", 
+      "street": "Pugu", 
+      "ward": "Pugu", 
+      "nationalID": "3456789021", 
+      "licenseID": "567123", 
+      "motorbikeNum": "ASX 987", 
+      "phoneNum": "0737123456", 
+      "jacketNum": "17"
+    },
+    {
+    "id": 7,
+    "name":"Tito", 
+    "position": "Mjumbe", 
+    "residence": "Pugu", 
+    "street": "Pugu", 
+    "ward": "Pugu", 
+    "nationalID": "3456789021", 
+    "licenseID": "567123", 
+    "motorbikeNum": "ASX 987", 
+    "phoneNum": "0737123456", 
+    "jacketNum": "17"
+  }
+  
+   
+  ]
