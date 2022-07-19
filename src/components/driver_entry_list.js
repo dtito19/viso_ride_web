@@ -4,10 +4,10 @@ import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import { red, blue } from '@mui/material/colors';
-import data from '../components/dummy_data.json';
+import data from './dummy_data.json';
 
 
-export default function Driver_Entry_List_Table({driverList,handleDelete, handleEditOpen}) {
+export default function Driver_Entry_List_Table({driverList,handleDelete}) {
           // const [name, setName] = useState('');
           // const [city, setCity] = useState('');  
           const [rows, setRows] = React.useState(driverList);
@@ -44,7 +44,7 @@ export default function Driver_Entry_List_Table({driverList,handleDelete, handle
         ],
       },
     ],
-    [handleDelete, handleEditOpen],
+    [handleDelete],
   );
 
   return (
@@ -53,7 +53,7 @@ export default function Driver_Entry_List_Table({driverList,handleDelete, handle
       editMode="row"
       columns={columns} 
       rows={driverList??[]} 
-      onEditRowsModelChange={handleEditOpen} 
+      // onEditRowsModelChange={handleEditOpen} 
 
       
       />

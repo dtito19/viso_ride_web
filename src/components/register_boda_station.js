@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -28,24 +28,41 @@ const theme = createTheme();
 
 
 export default function RegisterBoda() {
+  let navigate = useNavigate(); 
+  const [formValue, setFormValue] = useState({
+                                             station: "",
+                                             street: "",
+                                             ward: "",
+                                             district:"",
+  });
 
-    let navigate = useNavigate(); 
-  const routeChange = () =>{ 
-    let path = '/bodaDriverRegister'; 
-    navigate(path);
-  }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValue((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      };
     });
   };
 
+  const handleSubmit = (values) => {
+    values.preventDefault();
+    
+      let path = '/driverRegister'; 
+    navigate(path);
+    
+  };
+
+  const { station, street, ward, district } = formValue;
+
+
+
   return (
     <ThemeProvider theme={theme}>
+
+
       <Grid container component="main" justifyContent="center"
   alignItems="center" sx={{ height: '50vh', widht:'40' }}>
         <CssBaseline />
@@ -61,13 +78,11 @@ export default function RegisterBoda() {
               alignItems: 'center',
             }}
           >
-            {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar> */}
+          
             <Typography component="h1" variant="h5">
               Java Taarifa za Kituo
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 0.5 }}>
+            <form onSubmit={handleSubmit} sx={{ mt: 0.5 }}>
               <TextField
                 margin="normal"
                 required
@@ -75,6 +90,8 @@ export default function RegisterBoda() {
                 id="station"
                 label="Kituo"
                 name="station"
+                value={station}
+                onChange={handleChange}
                 autoComplete="station"
                 autoFocus
               />
@@ -87,6 +104,8 @@ export default function RegisterBoda() {
                 name="street"
                 autoComplete="street"
                 autoFocus
+                value={street}
+                onChange={handleChange}
               />
                <TextField
                 margin="normal"
@@ -97,6 +116,8 @@ export default function RegisterBoda() {
                 name="ward"
                 autoComplete="ward"
                 autoFocus
+                value={ward}
+                onChange={handleChange}
               />
               <TextField
                 margin="normal"
@@ -106,12 +127,16 @@ export default function RegisterBoda() {
                 label="Wilaya"
                 name="district"
                 autoComplete="district"
+                autoFocus
+                value={district}
+                onChange={handleChange}
+           
                 
               />
               
               <Button
-                onClick={routeChange}
                 fullWidth
+                type='submit'
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
@@ -119,7 +144,7 @@ export default function RegisterBoda() {
               </Button>
              
             
-            </Box>
+            </form>
           </Box>
           <Copyright/>
         </Grid>

@@ -29,7 +29,7 @@ export const mainListItems = (
     </ListItemButton>
     
 
-    <ListItemButton  component="a" href='/registerBoda'>
+    <ListItemButton  component="a" href='/registerStation'>
       <ListItemIcon>
         <TwoWheelerIcon />
       </ListItemIcon>

@@ -25,10 +25,10 @@ import { blue, grey } from '@mui/material/colors';
 
 import { mainListItems, secondaryListItems } from './listItems';
 
-import Deposits from './Deposits';
 import Driver_Entry_List from '../components/driver_entry_list';
 import TodayCard from '../components/Today_Data_Card';
 import PreviousDataCard from '../components/Previus_Data_Card';
+import RegisterBoda from '../components/register_boda_station';
 
 function Copyright(props) {
   return (
@@ -91,7 +91,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function DashboardContent() {
+function RegisterStationContent() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -128,9 +128,10 @@ function DashboardContent() {
               variant="h4"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1, mx: '20px'  }}
+              sx={{ flexGrow: 1, mx: '20px' }}
+             
             >
-              Dashboard
+              Sajili Kituo
             </Typography>
            
             <Box sx={{ flexGrow: 0 }}>
@@ -175,8 +176,7 @@ function DashboardContent() {
           <Divider />
           <List component="nav">
             {mainListItems}
-            {/* <Divider sx={{ my: 1 }} />
-            {secondaryListItems} */}
+           
           </List>
         </Drawer>
         <Box
@@ -192,76 +192,20 @@ function DashboardContent() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
          <Box sx={{ mb: 1 }}>
-         <Typography  component="h1"
-              variant="h3"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1,  lineHeight: 1 }}>Summary Information</Typography>
+         <RegisterBoda />
          </Box>
-
-            <Grid container spacing={3}>
-                
-              {/* Chart */}
-              <Grid item xs={12} md={4} lg={4}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 150,
-                    justifyContent:'center',
-                    alignItems: 'center'
-                  }}
-                >
-                  <TodayCard />
-                </Paper>
-              </Grid>
-              {/* Recent11 Deposits */}
-              <Grid item xs={12} md={4} lg={4}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 150,
-                    justifyContent:'center',
-                    alignItems: 'center'
-                  }}
-                >
-                  <PreviousDataCard />
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={4} lg={4}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 150,
-                    justifyContent:'center',
-                    alignItems: 'center'
-                  }}
-                >
-                  <Deposits />
-                </Paper>
-              </Grid>
-              {/* Recent Driver_Entry_List */}
-              <Grid item xs={12} alignItems='center' justifyContent='center'>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <Driver_Entry_List />
-                </Paper>
-              </Grid>
-            </Grid>
-            <Copyright sx={{ pt: 4 }} />
+         
+           
           </Container>
+         
         </Box>
       </Box>
     </ThemeProvider>
   );
 }
 
-export default function Dashboard() {
-  return <DashboardContent />;
+export default function RegisterStationPage() {
+  return <RegisterStationContent />;
 }
