@@ -14,7 +14,7 @@ import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton>
+    <ListItemButton component="a" href='/dashboard'>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
