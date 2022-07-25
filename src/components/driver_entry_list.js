@@ -1,23 +1,28 @@
 
 import * as React from 'react';
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem, GridRow } from '@mui/x-data-grid';
+import clsx from "clsx";
+import Box from '@mui/material/Box';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import EditIcon from '@mui/icons-material/Edit';
-import { red, blue } from '@mui/material/colors';
-import data from './dummy_data.json';
+import { red, } from '@mui/material/colors';
 
 
-export default function Driver_Entry_List_Table({driverList,handleDelete}) {
-          // const [name, setName] = useState('');
-          // const [city, setCity] = useState('');  
+  function CustomRow(props) {
+    const { className, index, ...other } = props;
+  
+    return (
+      <GridRow
+        index={index}
+        className={clsx(className, index % 2 === 0 ? "odd" : "even")}
+        {...other}
+      />
+    );
+  }
+
+
+
+export default function DriverEntryListTable({driverList,handleDelete}) { 
           const [rows, setRows] = React.useState(driverList);
-          const [updatedState, setUpdatedState] = React.useState(false);
-
-
-
-          const handleOnCellClick = (params) => {
-            setUpdatedState(params);
-          };
 
 
   const columns = React.useMemo(
@@ -48,16 +53,31 @@ export default function Driver_Entry_List_Table({driverList,handleDelete}) {
   );
 
   return (
-    <div style={{ height: 600, width: '100%' }}>
+<div style={{ height: 600, width: '100%' }}>
+    <Box
+      sx={{
+        height: 400,
+        width: 1,
+        "& .odd": {
+          bgcolor: "#ccc"
+        },
+        "& .even": {
+          bgcolor: "#eee"
+        },
+        // justifyContent: "center",
+        // alignItems: "center",
+        // alignContent: "center"
+      }}
+    >
       <DataGrid 
-      sx={{ m: 2 }}
+      components={{ Row: CustomRow }}
+      rowHeight={35}
       editMode="row"
       columns={columns} 
       rows={driverList??[]} 
-      // onEditRowsModelChange={handleEditOpen} 
 
-      
       />
+    </Box>
     </div>
   );
 }

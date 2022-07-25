@@ -10,7 +10,7 @@
 
 # production
 /build
-
+register_driver_page.js
 # misc
 .DS_Store
 .env.local

@@ -17,38 +17,20 @@ import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { blue, grey } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
-import { MuiTelInput, isValidPhoneNumber } from 'mui-tel-input'
 
 
-import { mainListItems, secondaryListItems } from "./listItems";
+import { mainListItems,} from "./listItems";
 
-import Driver_Entry_List_Table from "../components/driver_entry_list";
+import DriverEntryListTable from "../components/driver_entry_list";
 import Title from "../components/Title";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Viso Team
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
-const drawerWidth = 150;
+
+const drawerWidth = 240;;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -99,17 +81,13 @@ const mdTheme = createTheme();
 
 
 function RegisterDriverContent() {
-  const initialValue= {fullname: '', position: '', residence: '', street: '', ward: '',
-                       nationalID: '', licenseID: '', motorbikeNum: '', phoneNum: ''};
+
   const [driverList, setDriverList] = useState([]);
-  const [editFormData, setEditFormData] = useState([]);
   const [isError, setIsError] = useState({isError:false,message:""});
   const [isPhoneValid, setIsPhoneValid] =useState({isPhoneValid:false,message:""});
   const [isNidaValid, setIsNidaValid] =useState({isNidaValid:false,message:""});
   const [isLicenseValid, setIsLicenseValid] = useState({isLicenseValid:false,message:""});
   const [isPlateNumValid, setIsPlateNumValid] = useState({isPlateNumValid:false,message:""});
-  const [formErrors, setFormErrors] = useState({});
-  const [editOpen, setEditOpen] = React.useState(false);
   const [station, setStation] = React.useState(JSON.parse(localStorage.getItem("stationData")));
 
   useEffect(() => {
@@ -208,11 +186,11 @@ const validatePlateNum = (event) => {
   const number =event.target.value
   const firstPart1 = number.substr(0, 2);
   const firstPart2 = number.substr(0, 1);
-  if (number.length === 8  && firstPart2 === "T" || firstPart2 ==="t"  ) { 
+  if ((number.length === 8)  && (firstPart2 === "T" || firstPart2 ==="t")  ) { 
       event.target.value = number.replaceAt(0,"T")
       return true
   } 
-  else if(number.length === 8 && firstPart1 === "MC"  || firstPart1 == "mc"){
+  else if((number.length === 8) && (firstPart1 === "MC"  || firstPart1 === "mc")){
     event.target.value = number.replaceAt(0,"MC")
       return true
   }
@@ -566,8 +544,6 @@ const validatePlateNum = (event) => {
 
                       <Button
                       type="submit"
-                    
-                      ali
                       variant="contained"
                       sx={{ mt: 0, mb: 1 }}
                       style={{maxWidth: '200px', maxHeight: '30px', minWidth: '50px', minHeight: '30px'}}
@@ -581,40 +557,40 @@ const validatePlateNum = (event) => {
 
 
                   <Grid
-item
-xs={12}
-sm={8}
-md={7}
-component={Paper}
-elevation={6}
-square
->
-<Paper
-  sx={{
-    p: 2,
-    mt:2,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  }}
->
-  <Title>Taarifa Za Dereva Kituo Cha {station.station}</Title>
-  <Title>{driverList.ward}</Title>
-  <Driver_Entry_List_Table
-    handleEditOpen={handleEditOpen}
-    handleDelete={handleDelete}
-    driverList={driverList}
-  />
-  <Button
-    onClick={handleSubmit}
-    variant="contained"
-    sx={{ mt: 3, mb: 2 }}
-  >
-    Submit
-  </Button>
-</Paper>
-</Grid>
+                    item
+                    xs={12}
+                    sm={8}
+                    md={7}
+                    component={Paper}
+                    elevation={6}
+                    square
+                    >
+                  <Paper
+                    sx={{
+                      p: 2,
+                      mt:2,
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                  <Title>Taarifa Za Dereva Kituo Cha {station.station}</Title>
+                  <Title>{driverList.ward}</Title>
+                  <DriverEntryListTable
+                    handleEditOpen={handleEditOpen}
+                    handleDelete={handleDelete}
+                    driverList={driverList}
+                  />
+                  <Button
+                    onClick={handleSubmit}
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Submit
+                  </Button>
+                </Paper>
+                </Grid>
               
           </Container>
         </Box>
