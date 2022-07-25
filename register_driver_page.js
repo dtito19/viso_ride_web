@@ -1,82 +1,98 @@
-import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
+// import React, { useState } from "react";
+// import TextField from "@material-ui/core/TextField";
+// import InputAdornment from "@material-ui/core/InputAdornment";
 
-const App = () => {
-const [mobile, setmobile] = useState("");
-const [isError, setIsError] = useState(false);
+// const App = () => {
+// const [mobile, setmobile] = useState("");
+// const [isError, setIsError] = useState(false);
 
-return (
-	<div
-	style={{
-		marginLeft: "40%",
-	}}
-	>
-	<h2>Validate Mobile number length in ReactJS?</h2>
-	<TextField
-		type="tel"
-		error={isError}
-		value={mobile}
-		label="Enter Phone Number"
-		onChange={(e) => {
-		setmobile(e.target.value);
-		if (e.target.value.length > 10) {
-			setIsError(true);
-		}
-		}}
-		InputProps={{
-		startAdornment: <InputAdornment position="start">
-			+91
-			</InputAdornment>,
-		}}
-	/>
-	<h3>Your Mobile Number is: +91 {mobile} </h3>
-	</div>
-);
-};
+// return (
+// 	<div
+// 	style={{
+// 		marginLeft: "40%",
+// 	}}
+// 	>
+// 	<h2>Validate Mobile nuh in ReactJS?</h2>
+// 	<TextField
+// 		type="tel"
+// 		error={isError}
+// 		value={mobile}
+// 		label="Enter Phone Number"
+// 		onChange={(e) => {
+// 		setmobile(e.target.value);
+// 		if (e.target.value.length > 10) {
+// 			setIsError(true);
+// 		}
+// 		}}
+// 		InputProps={{
+// 		startAdornment: <InputAdornment position="start">
+// 			+91
+// 			</InputAdornment>,
+// 		}}
+// 	/>
+// 	<h3>Your Mobile Number is: +91 {mobile} </h3>
+// 	</div>
+// );
+// };
 
-export default App;
-
-
-/////////////////
-<Grid
-item
-xs={12}
-sm={8}
-md={7}
-component={Paper}
-elevation={6}
-square
->
-<Paper
-  sx={{
-    p: 2,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  }}
->
-  <Title>Jaza Taarifa Za Dereva Kituo Cha {station.station}</Title>
-  <Title>{driverList.ward}</Title>
-  <Driver_Entry_List_Table
-    handleEditOpen={handleEditOpen}
-    handleDelete={handleDelete}
-    driverList={driverList}
-  />
-  <Button
-    onClick={handleSubmit}
-    variant="contained"
-    sx={{ mt: 3, mb: 2 }}
-  >
-    Submit
-  </Button>
-</Paper>
-</Grid>
+// export default App;
 
 
+// /////////////////
+// <Grid
+// item
+// xs={12}
+// sm={8}
+// md={7}
+// component={Paper}
+// elevation={6}
+// square
+// >
+// <Paper
+//   sx={{
+//     p: 2,
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//     justifyContent: "center",
+//   }}
+// >
+//   <Title>Jaza Taarifa Za Dereva Kituo Cha {station.station}</Title>
+//   <Title>{driverList.ward}</Title>
+//   <Driver_Entry_List_Table
+//     handleEditOpen={handleEditOpen}
+//     handleDelete={handleDelete}
+//     driverList={driverList}
+//   />
+//   <Button
+//     onClick={handleSubmit}
+//     variant="contained"
+//     sx={{ mt: 3, mb: 2 }}
+//   >
+//     Submit
+//   </Button>
+// </Paper>
+// </Grid>
 
 
+
+
+
+// const [sampleObject, setSampleObject] = useState({});
+// useEffect(() => {
+//   let sampleObject = {
+// 	id: 1,
+// 	name: "infinitbility"
+//   };
+//   setSampleObject(sampleObject);
+// }, []);
+// return (
+//   <div className="App">
+// 	<h1>Hello {sampleObject.name}</h1>
+// 	<h2>Coding feels like fuel for my life!</h2>
+//   </div>
+// );
+// }
 
 
 

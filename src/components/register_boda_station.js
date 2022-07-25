@@ -9,6 +9,9 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import MenuItem from '@mui/material/MenuItem';
+
+ 
 
 function Copyright(props) {
   return (
@@ -39,6 +42,54 @@ export default function RegisterBoda() {
     ward: "",
     district: "",
   });
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
+
+  const [wilaya, setWilaya] = useState(JSON.parse(localStorage.getItem("stationData")));
+
+console.log(wards);
+console.log(districts);
+
+
+
+useEffect(() => {
+  const districtUrl = "https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam";
+
+  const fetchDistricts = async () => {
+    try {
+      const districtData = await fetch(districtUrl);
+      const data = await districtData.json();
+      console.log(data);
+      console.log(data.districts);
+      setDistricts(data.districts);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+
+  fetchDistricts();
+}, []);
+
+
+useEffect(() => {
+  const wardUrl ="https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/ilala";
+
+  const fetchWards = async () => {
+    try {
+      const wardData = await fetch(wardUrl);
+      const data = await wardData.json();
+      console.log(data);
+      console.log(data.wards);
+      setWards(data.wards);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  fetchWards();
+}, []);
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -61,6 +112,8 @@ export default function RegisterBoda() {
     };
 
     localStorage.setItem("stationData", JSON.stringify(stationData));
+    // const district = JSON.parse(localStorage.getItem("district"));
+
 
     let path = "/driverRegister";
     navigate(path);
@@ -118,22 +171,34 @@ export default function RegisterBoda() {
                 value={street}
                 onChange={handleChange}
               />
+           
               <TextField
                 margin="normal"
                 required
                 fullWidth
+                select
                 id="ward"
                 label="Kata"
                 name="ward"
-                autoComplete="ward"
                 autoFocus
                 value={ward}
                 onChange={handleChange}
-              />
+              >
+
+          {wards.map((ward) => (
+            <MenuItem key={ward.id} value={ward}>
+              {ward}
+            </MenuItem>
+          ))} 
+              </TextField>
+              
+
+
               <TextField
                 margin="normal"
                 required
                 fullWidth
+                select
                 id="district"
                 label="Wilaya"
                 name="district"
@@ -141,7 +206,17 @@ export default function RegisterBoda() {
                 autoFocus
                 value={district}
                 onChange={handleChange}
-              />
+              >
+
+          {districts.map((district) => (
+            <MenuItem key={district.id} value={district}>
+              {district}
+            </MenuItem>
+          ))} 
+              </TextField>
+
+
+             
 
               <Button
                 fullWidth

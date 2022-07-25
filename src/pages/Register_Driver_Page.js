@@ -90,6 +90,8 @@ function RegisterDriverContent() {
   const [isPlateNumValid, setIsPlateNumValid] = useState({isPlateNumValid:false,message:""});
   const [station, setStation] = React.useState(JSON.parse(localStorage.getItem("stationData")));
 
+  console.log(station);
+
   useEffect(() => {
     const driverList = JSON.parse(localStorage.getItem("driverList"));
     if (driverList) {
@@ -120,7 +122,7 @@ function RegisterDriverContent() {
 
   const handleSave = (event) => {
     event.preventDefault();
-    if(!isError.isError){
+    if(!isError.isError && !isPhoneValid.isPhoneValid && !isNidaValid.isNidaValid && !isLicenseValid.isLicenseValid && !isPlateNumValid.isPlateNumValid){
 
       const driver = {
         id: Math.random() * 10,
@@ -476,6 +478,7 @@ const validatePlateNum = (event) => {
                       margin="normal"
                       required
                       fullWidth
+                      type={"number"}
                       size="small"
                       id="licenseID"
                       label="Namba Ya Leseni"
@@ -485,9 +488,11 @@ const validatePlateNum = (event) => {
                       onChange={onChange}
                       helperText={isLicenseValid.message}
                       error={isLicenseValid.isLicenseValid}
-                      inputProps={{
-                        maxLength: 10,
-                      }}
+                      // inputProps={{
+                      //   maxLength: 10,
+                      // }}
+                      InputProps={{ inputProps: { min: 0, maxLength: 10, } }}
+
                       autoFocus
                     />
                     <TextField
@@ -512,6 +517,7 @@ const validatePlateNum = (event) => {
                       margin="normal"
                       required
                       fullWidth
+                      type={"tel"}
                       size="small"
                       id="phoneNum"
                       placeholder="0712345678"
@@ -576,7 +582,7 @@ const validatePlateNum = (event) => {
                     }}
                   >
                   <Title>Taarifa Za Dereva Kituo Cha {station.station}</Title>
-                  <Title>{driverList.ward}</Title>
+                  {/* <Title>{driverList.ward}</Title> */}
                   <DriverEntryListTable
                     handleEditOpen={handleEditOpen}
                     handleDelete={handleDelete}
