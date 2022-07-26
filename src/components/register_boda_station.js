@@ -40,10 +40,11 @@ export default function RegisterBoda() {
     station: "",
     street: "",
     ward: "",
-    district: "",
+    district: "ubungo",
   });
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
+  // const [selectedDistrict, setSelectedDistrict] = useState(formValue.district);
 
   const [wilaya, setWilaya] = useState(JSON.parse(localStorage.getItem("stationData")));
 
@@ -53,6 +54,8 @@ console.log(districts);
 
 
 useEffect(() => {
+  // setSelectedDistrict(selectedDistrict);
+  // console.log(selectedDistrict);
   const districtUrl = "https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam";
 
   const fetchDistricts = async () => {
@@ -67,25 +70,47 @@ useEffect(() => {
     }
   };
 
-
   fetchDistricts();
 }, []);
 
-
-useEffect(() => {
-  const wardUrl ="https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/ilala";
-
-  const fetchWards = async () => {
+const fetchWards = async (district) => {
+  const wardUrl =`https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/${district}`
+   
     try {
       const wardData = await fetch(wardUrl);
       const data = await wardData.json();
       console.log(data);
-      console.log(data.wards);
+      console.log("warsaaaaa",data.wards);
       setWards(data.wards);
+
     } catch (error) {
       console.log("error", error);
     }
-  };
+    console.log("state  changes ++++++++++++++++++++++++++++")
+  }
+
+useEffect(() => {
+  const ilalaUrl =`https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/${formValue.district}`;
+  // const kinondoniUrl ="https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/kinondoni";
+  // const temekeUrl ="https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/temeke";
+  // const ubungoUrl ="https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/ubungo";
+  // const kigamboniUrl ="https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/kigamboni";
+
+  const fetchWards = async () => {
+    // if(formValue.district ==="ilala"){
+      console.log("state  changes ++++++++++++++++++++++++++++")
+      try {
+        const wardData = await fetch(ilalaUrl);
+        const data = await wardData.json();
+        console.log(data);
+        console.log("warsaaaaa",data.wards);
+        setWards(data.wards);
+
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+
 
   fetchWards();
 }, []);
@@ -93,6 +118,9 @@ useEffect(() => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    if (name ==="district"){
+      fetchWards(event.target.value)
+    }
     setFormValue((prevState) => {
       return {
         ...prevState,
@@ -163,14 +191,22 @@ useEffect(() => {
                 margin="normal"
                 required
                 fullWidth
-                id="street"
-                label="Mtaa"
-                name="street"
-                autoComplete="street"
+                select
+                id="district"
+                label="Wilaya"
+                name="district"
+                autoComplete="district"
                 autoFocus
-                value={street}
+                value={district}
                 onChange={handleChange}
-              />
+              >
+
+          {districts.map((district) => (
+            <MenuItem key={district.id} value={district}>
+              {district}
+            </MenuItem>
+          ))} 
+              </TextField>
            
               <TextField
                 margin="normal"
@@ -194,26 +230,19 @@ useEffect(() => {
               
 
 
+              
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                select
-                id="district"
-                label="Wilaya"
-                name="district"
-                autoComplete="district"
+                id="street"
+                label="Mtaa"
+                name="street"
+                autoComplete="street"
                 autoFocus
-                value={district}
+                value={street}
                 onChange={handleChange}
-              >
-
-          {districts.map((district) => (
-            <MenuItem key={district.id} value={district}>
-              {district}
-            </MenuItem>
-          ))} 
-              </TextField>
+              />
 
 
              
