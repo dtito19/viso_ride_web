@@ -1,12 +1,14 @@
 import React,{useState, useEffect} from 'react';
 import Typography from '@mui/material/Typography';
-import axios from 'axios';
+import { Box } from '@mui/material';
 
 import Title from './Title';
+import axios from 'axios';
 
 
 
-const PreviousDataCard=() =>{
+export default function TotalDrivers() {
+
   const [count, setCount] = useState();
 
   const fetchData = async () => {
@@ -22,9 +24,10 @@ const PreviousDataCard=() =>{
           }
     })
 
-    console.log(response.data.admin_total_count);
-    let count = response.data.admin_total_count
+    console.log(response.data.total_count);
+    let count=response.data.total_count
     setCount(count);
+    console.log(count);
     } catch (error) {
       console.log(error);
     }
@@ -36,15 +39,23 @@ const PreviousDataCard=() =>{
     }, []);
 
 
+
+
+
   return (
     <React.Fragment>
-      <Title>Ingizo kabla ya leo</Title>
+      <Box 
+      alignContent='center'
+      alignItems='center'
+      >
+      <Title>Jumla</Title>
       <Typography component="p" variant="h4">
-      {count}
+        {count}
       </Typography>
-     
+      </Box>
+      
+   
+ 
     </React.Fragment>
   );
 }
-
-export default PreviousDataCard;

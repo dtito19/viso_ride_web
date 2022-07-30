@@ -90,7 +90,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function DashboardContent() {
+function EditBodaContent() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -206,12 +206,12 @@ function DashboardContent() {
               variant="h3"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1,  lineHeight: 1 }}>Summary Information</Typography>
+              sx={{ flexGrow: 1,  lineHeight: 1 }}>Taarifa Za Chombo Na Dereva</Typography>
          </Box>
 
             <Grid container spacing={3}>
                 
-              {/* Chart */}
+             
               <Grid item xs={12} md={4} lg={4}>
                 <Paper
                   sx={{
@@ -255,12 +255,8 @@ function DashboardContent() {
                   <TotalDrivers />
                 </Paper>
               </Grid>
-              {/* Recent Driver_Entry_List */}
-              <Grid item xs={12} alignItems='center' justifyContent='center'>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <RecentEntryData />
-                </Paper>
-              </Grid>
+            
+
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
@@ -270,6 +266,6 @@ function DashboardContent() {
   );
 }
 
-export default function Dashboard() {
-  return <DashboardContent />;
+export default function EditBodaDetails() {
+  return <EditBodaContent />;
 }

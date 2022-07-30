@@ -28,15 +28,15 @@ export default function DriverEntryListTable({driverList,handleDelete}) {
   const columns = React.useMemo(
     () => [
       { field: 'name', headerName:'Jina',  type: 'string', editable: true},
-      { field: 'position', headerName:'Nafasi', type: 'string', editable: true},
-      {field: 'residence', headerName:'Anapoishi', editable: true},
+      { field: 'title', headerName:'Nafasi', type: 'string', editable: true},
+      {field: 'address', headerName:'Anapoishi', editable: true},
       {field: 'street', headerName:'Mtaa', type: 'string',width: 120, hide: false, editable: true},
       { field: 'ward', headerName:'Kata', type: 'string', editable: true, hide: false,},
-      { field: 'nationalID', headerName:'Namba Ya Nida', type: 'string', hide: false, editable: true},
-      { field: 'licenseID', headerName:'Namba Ya Leseni', type: 'string', hide: false, editable: true},
-      { field: 'motorbikeNum', headerName:'Namba Ya Pikipiki', type: 'string', hide: false, editable: true},
-      { field: 'phoneNum', headerName:'Namba Ya Simu', type: 'string', hide: true, editable: true},
-      { field: 'jacketNum', headerName:'Namba Ya Jacketi', type: 'string', width: 140, editable: true},
+      { field: 'nida_number', headerName:'Namba Ya Nida', type: 'string', hide: false, editable: true},
+      { field: 'license_number', headerName:'Namba Ya Leseni', type: 'string', hide: false, editable: true},
+      { field: 'registration', headerName:'Namba Ya Pikipiki', type: 'string', hide: false, editable: true},
+      { field: 'phone_number', headerName:'Namba Ya Simu', type: 'string', hide: true, editable: true},
+      { field: 'jacket_number', headerName:'Namba Ya Jacketi', type: 'string', width: 140, editable: true},
       {field: 'Actions',type: 'actions',width: 80, renderCell: (params) => [
       
           <GridActionsCellItem

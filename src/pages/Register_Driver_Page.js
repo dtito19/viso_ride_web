@@ -21,7 +21,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { blue, grey } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 
 import { mainListItems,} from "./listItems";
 
@@ -89,8 +89,11 @@ function RegisterDriverContent() {
   const [isLicenseValid, setIsLicenseValid] = useState({isLicenseValid:false,message:""});
   const [isPlateNumValid, setIsPlateNumValid] = useState({isPlateNumValid:false,message:""});
   const [station, setStation] = React.useState(JSON.parse(localStorage.getItem("stationData")));
+  const [operatorId, setOperatorId] = useState(JSON.parse(localStorage.getItem("OperatorId")));
+  const [updatedList, setupdatedList] = useState(driverList);
 
   console.log(station);
+  console.log(operatorId);
 
   useEffect(() => {
     const driverList = JSON.parse(localStorage.getItem("driverList"));
@@ -105,19 +108,58 @@ function RegisterDriverContent() {
 
   const navigate = useNavigate();
 
+
+  const SubmitFormData = async() => {
+
+    const operatorID = localStorage.getItem("OperatorId");
+    console.log("operator",operatorID);
+
+    const station = JSON.parse(localStorage.getItem("stationData"));
+    console.log("stattion",station);
+
+    const drivers = JSON.parse(localStorage.getItem("driverList"));
+    let modifiedDrivers =[...drivers]
+  
+
+    const dataToDb = {
+      operator_id:operatorID,
+      ...station,
+      drivers:modifiedDrivers.map(driver=> {
+        const {id,...restInfo} = driver
+        return {...restInfo}
+      })
+    }
+
+    console.log("info",dataToDb);
+
+    const res = await axios.post("http://44.204.62.92/Api", 
+      {
+        api:110,
+        code:203,
+        data:{
+          ...dataToDb
+            }
+      }).catch((error) => console.log(error));
+
+    const data = await res.data; 
+    let dataCode = data.code;
+    console.log(data.user_details.operator_id);
+    if(dataCode === 300){
+     alert("Incorrect Pin, Enter Correct Pin To Proceed");
+    }
+    else if(data.code === 200){
+      navigate('/dashboard')
+    }
+    return data;
+  }
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    SubmitFormData();
+    localStorage.clear()
 
-    const station = JSON.parse(localStorage.getItem("station"));
-    const drivers = JSON.parse(localStorage.getItem("driverList"));
-    setStation({
-      ...station,
-      driver_list: drivers,
-    });
-    console.log("info", station);
 
-    // 👇️ redirect
-    // navigate('/registerStation', {replace: true});
   };
 
   const handleSave = (event) => {
@@ -127,15 +169,15 @@ function RegisterDriverContent() {
       const driver = {
         id: Math.random() * 10,
         name: event.target.fullname.value,
-        position: event.target.position.value,
-        residence: event.target.residence.value,
+        title: event.target.title.value,
+        address: event.target.address.value,
         street: event.target.street.value,
         ward: event.target.ward.value,
-        nationalID: event.target.nationalID.value,
-        licenseID: event.target.licenseID.value,
-        motorbikeNum: event.target.motorbikeNum.value,
-        phoneNum: event.target.phoneNum.value,
-        jacketNum: event.target.jacketNum.value,
+        nida_number: event.target.nida_number.value,
+        license_number: event.target.license_number.value,
+        registration: event.target.registration.value,
+        phone_number: event.target.phone_number.value,
+        jacket_number: event.target.jacket_number.value,
       };
      
       event.target.reset();
@@ -161,7 +203,7 @@ function RegisterDriverContent() {
 
 }
 
-const validateLicenseID = (number) => {
+const validatelicense_number = (number) => {
   // const firstPart = number.substr(0, 1)
   if (number.length === 10) {
       return true
@@ -205,7 +247,7 @@ const validatePlateNum = (event) => {
 
 
   const onChange = (event) => {
-    if (event.target.name === "phoneNum"){
+    if (event.target.name === "phone_number"){
       if ( !validatePhoneNumber(event.target.value)) {
         setIsPhoneValid({isPhoneValid:true,message:"Ingiza Namba sahihi ya simu"});
         
@@ -214,15 +256,15 @@ const validatePlateNum = (event) => {
         setIsPhoneValid({isPhoneValid:false,message:""});
       }
     } 
-     if (event.target.name === "licenseID"){
-      if( !validateLicenseID(event.target.value)){
+     if (event.target.name === "license_number"){
+      if( !validatelicense_number(event.target.value)){
         setIsLicenseValid({isLicenseValid:true,message:"Ingiza Namba sahihi ya leseni"});
       }else{
         setIsLicenseValid({isLicenseValid:false,message:""});
       }
      }
 
-     if (event.target.name === "nationalID"){
+     if (event.target.name === "nida_number"){
       if( !validateNationalID(event.target.value)){
         setIsNidaValid({isNidaValid:true,message:"Ingiza Namba sahihi ya NIDA"});
       }else{
@@ -230,7 +272,7 @@ const validatePlateNum = (event) => {
       }
      }
 
-     if (event.target.name === "motorbikeNum"){
+     if (event.target.name === "registration"){
       if( !validatePlateNum(event)){
         setIsPlateNumValid({isPlateNumValid:true,message:"Ingiza Namba sahihi ya pikipiki"});
       }else{
@@ -378,11 +420,9 @@ const validatePlateNum = (event) => {
                     <TextField
                       margin="normal"
                       required
-                     
                       fullWidth
                       size="small"
                       id="fullname"
-                      // value={driverList[0].fullname}
                       label="Jina la Dereva"
                       name="fullname"
                       autoComplete="fullname"
@@ -395,10 +435,10 @@ const validatePlateNum = (event) => {
                       required
                       fullWidth
                       size="small"
-                      id="position"
+                      id="title"
                       label="Nafasi"
-                      name="position"
-                      autoComplete="position"
+                      name="title"
+                      autoComplete="title"
                       autoFocus
                       placeholder="Mjumbe"
                     />
@@ -407,10 +447,10 @@ const validatePlateNum = (event) => {
                       required
                       fullWidth
                       size="small"
-                      id="residence"
+                      id="address"
                       label="Mahali Anapoishi"
-                      name="residence"
-                      autoComplete="residence"
+                      name="address"
+                      autoComplete="address"
                       autoFocus
                       placeholder="Kinondoni A"
                     />
@@ -461,11 +501,11 @@ const validatePlateNum = (event) => {
                       required
                       fullWidth
                       size="small"
-                      id="nationalID"
+                      id="nida_number"
                       label="Namba Ya Nida"
-                      name="nationalID"
+                      name="nida_number"
                       placeholder="18881212111210000120"
-                      autoComplete="nationalID"
+                      autoComplete="nida_number"
                       onChange={onChange}
                       helperText={isNidaValid.message}
                       error={isNidaValid.isNidaValid}
@@ -480,10 +520,10 @@ const validatePlateNum = (event) => {
                       fullWidth
                       type={"number"}
                       size="small"
-                      id="licenseID"
+                      id="license_number"
                       label="Namba Ya Leseni"
-                      name="licenseID"
-                      autoComplete="licenseID"
+                      name="license_number"
+                      autoComplete="license_number"
                       placeholder="4001234567"
                       onChange={onChange}
                       helperText={isLicenseValid.message}
@@ -500,11 +540,11 @@ const validatePlateNum = (event) => {
                       required
                       fullWidth
                       size="small"
-                      id="motorbikeNum"
+                      id="registration"
                       label="Namba Ya Pikipiki"
-                      name="motorbikeNum"
+                      name="registration"
                       placeholder="MC123DCV"
-                      autoComplete="motorbikeNum"
+                      autoComplete="registration"
                       onChange={onChange}
                       helperText={isPlateNumValid.message}
                       error={isPlateNumValid.isPlateNumValid}
@@ -519,11 +559,11 @@ const validatePlateNum = (event) => {
                       fullWidth
                       type={"tel"}
                       size="small"
-                      id="phoneNum"
+                      id="phone_number"
                       placeholder="0712345678"
                       label="Namba Ya Simu"
-                      name="phoneNum"
-                      autoComplete="phoneNum"
+                      name="phone_number"
+                      autoComplete="phone_number"
                       inputProps={{
                         maxLength: 10,
                       }}
@@ -538,10 +578,10 @@ const validatePlateNum = (event) => {
                       fullWidth
                       size="small"
                       placeholder="012"
-                      id="jacketNum"
+                      id="jacket_number"
                       label="Namba Ya Jacket"
-                      name="jacketNum"
-                      autoComplete="jacketNum"
+                      name="jacket_number"
+                      autoComplete="jacket_number"
                       autoFocus
                     />
                 </Box>

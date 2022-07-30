@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from 'react'
-// import { Button } from '@mui/material';
+import React, {  } from 'react'
 import Input from "./input";
-import Button from './Button';
 import { useForm, Form } from './useForm';
 
 
-// const genderItems = [
-//     { id: 'male', title: 'Male' },
-//     { id: 'female', title: 'Female' },
-//     { id: 'other', title: 'Other' },
-// ]
 
 const initialFValues = {
     
@@ -23,12 +16,6 @@ const initialFValues = {
 
 export default function StationForm() {
 
-    //  const insertEmployee =(data) =>{
-    //     let employees=getAllEmployees();
-    //     data['id'] = generateEmployeeId()
-    //     employees.push(data)
-    //     localStorage.setItem(KEYS.employees,JSON.stringify(employees))
-    // }
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }

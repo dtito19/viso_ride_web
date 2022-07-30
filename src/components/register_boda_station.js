@@ -37,14 +37,13 @@ const theme = createTheme();
 export default function RegisterBoda() {
   let navigate = useNavigate();
   const [formValue, setFormValue] = useState({
-    station: "",
+    name: "",
     street: "",
     ward: "",
     district: "ubungo",
   });
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
-  // const [selectedDistrict, setSelectedDistrict] = useState(formValue.district);
 
   const [wilaya, setWilaya] = useState(JSON.parse(localStorage.getItem("stationData")));
 
@@ -54,8 +53,7 @@ console.log(districts);
 
 
 useEffect(() => {
-  // setSelectedDistrict(selectedDistrict);
-  // console.log(selectedDistrict);
+ 
   const districtUrl = "https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam";
 
   const fetchDistricts = async () => {
@@ -90,17 +88,14 @@ const fetchWards = async (district) => {
   }
 
 useEffect(() => {
-  const ilalaUrl =`https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/${formValue.district}`;
-  // const kinondoniUrl ="https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/kinondoni";
-  // const temekeUrl ="https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/temeke";
-  // const ubungoUrl ="https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/ubungo";
-  // const kigamboniUrl ="https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/kigamboni";
+  const DistrictUrl =`https://mtaa-api.herokuapp.com/api/tanzania/Dar-es-salaam/${formValue.district}`;
+
 
   const fetchWards = async () => {
     // if(formValue.district ==="ilala"){
       console.log("state  changes ++++++++++++++++++++++++++++")
       try {
-        const wardData = await fetch(ilalaUrl);
+        const wardData = await fetch(DistrictUrl);
         const data = await wardData.json();
         console.log(data);
         console.log("warsaaaaa",data.wards);
@@ -133,7 +128,7 @@ useEffect(() => {
     event.preventDefault();
 
     const stationData = {
-      station: event.target.station.value,
+      name: event.target.station.value,
       street: event.target.street.value,
       ward: event.target.ward.value,
       district: event.target.district.value,
