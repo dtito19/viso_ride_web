@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
+import Autocomplete from '@mui/material/Autocomplete';
+
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
@@ -44,6 +46,8 @@ export default function RegisterBoda() {
   });
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
+  const [value, setValue] = React.useState(wards[0]);
+  const [inputValue, setInputValue] = React.useState('');
 
   const [wilaya, setWilaya] = useState(JSON.parse(localStorage.getItem("stationData")));
 
@@ -151,11 +155,18 @@ useEffect(() => {
         component="main"
         justifyContent="center"
         alignItems="center"
-        sx={{ height: "50vh", widht: "40" }}
+        sx={{ height: "50vh", 
+        widht: "50",
+        // boxShadow:  " 5px 10px 10px 5px #ccc",
+        // borderRadius: 5
+       }}
+        // sx={{ boxShadow:  " 5px 10px 10px 5px #ccc",
+        // borderRadius: 5}}
       >
         <CssBaseline />
 
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square  sx={{ boxShadow:  " 5px 10px 10px 5px #ccc",
+        borderRadius: 5}}>
           <Box
             sx={{
               my: 4,
@@ -164,6 +175,7 @@ useEffect(() => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
+              
             }}
           >
             <Typography component="h1" variant="h5">
@@ -203,7 +215,7 @@ useEffect(() => {
           ))} 
               </TextField>
            
-              <TextField
+              {/* <TextField
                 margin="normal"
                 required
                 fullWidth
@@ -221,9 +233,22 @@ useEffect(() => {
               {ward}
             </MenuItem>
           ))} 
-              </TextField>
+              </TextField> */}
               
-
+        <Autocomplete
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+          inputValue={inputValue}
+          onInputChange={(event, newInputValue) => {
+            setInputValue(newInputValue);
+          }}
+          id="ward"
+          options={wards}
+          // sx={{ width: 300 }}
+          renderInput={(params) => <TextField {...params} label="Kata" />}
+      />
 
               
               <TextField
@@ -238,9 +263,6 @@ useEffect(() => {
                 value={street}
                 onChange={handleChange}
               />
-
-
-             
 
               <Button
                 fullWidth

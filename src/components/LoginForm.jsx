@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PinField from "react-pin-field";
+import CircularProgress from '@mui/material/CircularProgress';
+
 import axios from "axios";
 // import {useDispatch} from 'react-redux';
 
@@ -24,46 +26,54 @@ const LoginForm = () => {
   const [completed, setCompleted] = useState(false);
   const ref = useRef([]);
   const [inputs, setInputs] = useState({otp: []});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
 
   const sendLogin = async(otp) => {
-    const res = await axios.post("http://44.204.62.92/Api", 
+    setIsSubmitting(true);
+    try {
+      const res = await axios.post("http://44.204.62.92/Api", 
       {
         api:110,
         code:104,
         data:{
           otp: parseInt(otp)
             }
-      }).catch((error) => console.log(error));
+      })
 
-    const data = await res.data; 
-    console.log(data.code);
-    let dataCode = data.code;
-    console.log(dataCode);
-    console.log(data.user_details.operator_id);
-    localStorage.setItem("OperatorId", data.user_details.operator_id)
-    if(dataCode === 300){
-     alert("Incorrect Pin, Enter Correct Pin To Proceed");
+      const data = await res.data; 
+      console.log(data.code);
+      let dataCode = data.code;
+      console.log(dataCode);
+      console.log(data.user_details.operator_id);
+      localStorage.setItem("OperatorId", data.user_details.operator_id)
+   
+      if(dataCode === 200){
+        navigate('/dashboard')
+      }
+      return data;
+
+    } catch (error) {
+      // console.log('Somhjvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
+      alert('Something went wrong try again');
+      setIsSubmitting(false);     
+
+
+      
     }
-    else if(data.code === 200){
-      navigate('/dashboard')
-    }
-    return data;
+
+
+console.log(inputs.otp);
+    
   }
  
-  
-
-
-
   const handleSubmit = (e) =>{
     e.preventDefault();
     let pinValues=""
     ref.current.forEach(input => ( pinValues = pinValues+input.value))
     console.log(pinValues);
-    sendLogin(pinValues)
-              .then((data) => console.log("yesss",data.code))
-              .then((data) =>console.log(data));
    
+    sendLogin(pinValues);
   }
 
 
@@ -72,6 +82,7 @@ const LoginForm = () => {
 
 
   return (
+  
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
        <Box 
           maxWidth={400}
@@ -113,16 +124,19 @@ const LoginForm = () => {
                 />
           </Box>
 
-          <Button 
+          {isSubmitting ? <CircularProgress color="warning" /> :         
+           <Button 
             type='submit'
             variant='contained'
             sx={{borderRadius: 3, marginTop: 3}} 
-            color="warning">Login</Button>   
+            color="warning">Login</Button> }
+   
          
           </Box>
 
   
       </form>
+   
   );
 };
 

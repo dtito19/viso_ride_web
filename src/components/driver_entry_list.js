@@ -53,10 +53,10 @@ export default function DriverEntryListTable({driverList,handleDelete}) {
   );
 
   return (
-<div style={{ height: 600, width: '100%' }}>
+<div style={{ height: 340, width: '100%' }}>
     <Box
       sx={{
-        height: 400,
+        height: 360,
         width: 1,
         "& .odd": {
           bgcolor: "#ccc"
