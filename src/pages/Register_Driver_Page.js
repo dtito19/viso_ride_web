@@ -10,7 +10,6 @@ import Tooltip from "@mui/material/Tooltip";
 import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
-import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -24,15 +23,13 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Alert from "@mui/material/Alert";
 
 import { blue, grey } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { mainListItems } from "./listItems";
+import Leftbar from "./listItems";
 import RegisterBoda from "../components/register_boda_station";
 import DriverEntryListTable from "../components/driver_entry_list";
 import Title from "../components/Title";
@@ -437,7 +434,7 @@ function RegisterDriverContent() {
                 </IconButton>
               </Toolbar>
               <Divider />
-              <List component="nav">{mainListItems}</List>
+              <Leftbar />
             </Drawer>
 
             <Box
@@ -555,7 +552,6 @@ function RegisterDriverContent() {
                       >
                         <TextField
                           margin="normal"
-                          required
                           fullWidth
                           size="small"
                           id="nida_number"
@@ -573,7 +569,6 @@ function RegisterDriverContent() {
                         />
                         <TextField
                           margin="normal"
-                          required
                           fullWidth
                           type={"number"}
                           size="small"
@@ -630,7 +625,6 @@ function RegisterDriverContent() {
                         />
                         <TextField
                           margin="normal"
-                          required
                           fullWidth
                           size="small"
                           placeholder="012"
