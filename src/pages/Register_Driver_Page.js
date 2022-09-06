@@ -492,7 +492,6 @@ function RegisterDriverContent() {
 
                         <TextField
                           margin="normal"
-                          required
                           fullWidth
                           size="small"
                           id="title"
@@ -515,7 +514,6 @@ function RegisterDriverContent() {
                         />
                         <TextField
                           margin="normal"
-                          required
                           fullWidth
                           size="small"
                           id="street"
